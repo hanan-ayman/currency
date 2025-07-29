@@ -49,6 +49,8 @@ A Spring Boot application that provides REST APIs for managing currencies and th
 
 Once the application is running, you can access the OpenAPI documentation at:
 
+- Swagger UI: http://localhost:8080/swagger-ui.html
+
 ## API Limitations
 
 ### Open Exchange Rates Free Plan Restrictions
@@ -67,8 +69,7 @@ When using the free tier of Open Exchange Rates API, please be aware of the foll
 3. **Upgrading**:
    - To remove these limitations, consider upgrading to a paid plan at [Open Exchange Rates](https://openexchangerates.org/signup)
    - Paid plans offer additional base currencies, more frequent updates, and higher API call limits
-- Swagger UI: http://localhost:8080/swagger-ui.html
-- OpenAPI JSON: http://localhost:8080/v3/api-docs
+
 
 ## Available Endpoints
 
