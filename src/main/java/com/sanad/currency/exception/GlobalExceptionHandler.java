@@ -1,8 +1,11 @@
 package com.sanad.currency.exception;
 
+import jakarta.validation.ConstraintViolation;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -39,8 +42,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = ex.getBindingResult().getFieldErrors().stream()
                 .collect(Collectors.toMap(
-                        fieldError -> fieldError.getField(),
-                        fieldError -> fieldError.getDefaultMessage()
+                        FieldError::getField,
+                        DefaultMessageSourceResolvable::getDefaultMessage
                 ));
                 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
@@ -54,7 +57,7 @@ public class GlobalExceptionHandler {
                             String path = violation.getPropertyPath().toString();
                             return path.substring(path.lastIndexOf('.') + 1);
                         },
-                        violation -> violation.getMessage()
+                        ConstraintViolation::getMessage
                 ));
                 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
